@@ -119,34 +119,6 @@ class OrgResourceCnt(OrgUserDataDocument):
     cnt = IntField()
 
 
-# class UserPlatformApp(AuthApp):
-#     """
-#     用户开放平台应用,需要提供一些东西进行审核的
-#     """
-#
-#     company_name = StringField(max_length=1024)  # 企业名称
-#     website = StringField(max_length=1024)  # 企业网址
-#     phone = StringField(max_length=32)  # 联系电话
-#     status = IntField()  # 审核状态：0表示刚注册
-
-#
-# class WebOpenApp(AuthApp):
-#     """
-#     PC端的Web扫码登录App，对应的还有移动端的。
-#     """
-#     __collection__ = "auth_app"
-#
-#     cb_url = StringField(max_length=10240)  # 回调的url，类似于webhook一样，只要授权后，就调用的url
-
-
-# class MobileOpenApp(AuthApp):
-#     """
-#     移动端开放平台app
-#     """
-#     __collection__ = "auth_mobile_app"
-#     cb_app = StringField(max_length=10240)  # 回调的app应用包名称
-
-
 # 正面都是系统数据，当然也有可能是业务数据
 
 class MobileSafetyData(OrgUserDataDocument, HttpDocument,
