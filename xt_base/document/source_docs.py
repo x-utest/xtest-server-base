@@ -13,21 +13,6 @@ from dtlib.aio.base_mongo import MyDocument
 from dtlib.tornado.base_docs import OrgUserDataDocument
 
 
-class Project(OrgUserDataDocument):
-    """
-    测试项目,用于自动化的处理的
-    """
-    __collection__ = "test_project"
-    __lazy__ = False
-
-    project_name = StringField()  # 项目名称
-    mark = StringField()  # 项目描述
-
-    def set_template(self):
-        self.project_name = 'xtest-demo'
-        self.mark = 'project for first demo'
-
-
 class InfoAsset(OrgUserDataDocument):
     """
     企业组织的信息资产设备，主要是服务器
