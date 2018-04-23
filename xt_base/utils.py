@@ -39,8 +39,8 @@ def wrap_project_tag(origin_dict, project):
     :type project:Project
     :return:
     """
-    origin_dict.update(pro_id=project.get_id())  # 转化为ObjectId保存
-    origin_dict.update(pro_name=project.project_name)
+    origin_dict.update(pro_id=project['_id'])  # 转化为ObjectId保存
+    origin_dict.update(pro_name=project['project_name'])
     return origin_dict
 
 
@@ -78,12 +78,12 @@ async def get_org_data_paginator(self, *args, **kwargs):
 
     if pro_id is None:
         msg_details = mycol.find({
-            "organization": user_org.get_id(),
+            "organization": ObjectId(user_org),
             "is_del": False
         }, hide_fields).sort([('rc_time', DESCENDING)])  # 升序排列
     else:
         msg_details = mycol.find({
-            "organization": user_org.get_id(),
+            "organization": ObjectId(user_org),
             'pro_id': ObjectId(str(pro_id)),
             "is_del": False
         }, hide_fields).sort([('rc_time', DESCENDING)])  # 升序排列
@@ -115,33 +115,33 @@ async def get_org_data(self, **kwargs):
     :param kwargs:
     :return:
     """
-    cls = kwargs.get('cls_name', None)
+    collection = kwargs.get('collection', None)
     project_id = kwargs.get('pro_id', None)
     org = await self.get_organization()
 
     if org is None:
         return None
 
+    db = self.get_async_mongo()
+    col = db[collection]
+
     # 用project做筛选
     if project_id is not None:
         project_obj_id = ObjectId(str(project_id))
-        org_data = await cls.objects.filter(
-            organization=org.get_id(),
+        data = dict(
+            organization=ObjectId(org),
             project=project_obj_id,
             is_del=False
-        ).order_by('rc_time', direction=DESCENDING).find_all()
-        """:type:list[MyDocument]"""
-
-        return org_data
-
-    # 没有做筛选
-    org_data = await cls.objects.filter(
-        organization=org.get_id(),
-        is_del=False
-    ).order_by('rc_time', direction=DESCENDING).find_all()
-    """:type:list[MyDocument]"""
-
-    return org_data
+        )
+    else:
+        # 没有做筛选
+        data = dict(
+            organization=ObjectId(org),
+            is_del=False
+        )
+    org_data = col.find(data).sort([('rc_time', DESCENDING)])
+    org_cnt = await org_data.count()
+    return await org_data.to_list(org_cnt)
 
 
 def user_id_is_legal(user_id):

@@ -58,4 +58,15 @@ class MyBaseHandler(MyUserBaseHandler):
         self.set_header('Access-Control-Allow-Methods',
                         'POST, GET, OPTIONS')
 
-
+    def set_http_tag(self):
+        """
+        设置http的标记
+        :return:
+        """
+        new_tag = dict(
+            ip = self.request.remote_ip,  # 客户端访问的IP
+            user_agent = self.request.headers.get('User-Agent', None),
+            cookie = self.request.headers.get('Cookie', None),
+            referrer = self.request.headers.get('Referer', None)
+        )
+        return new_tag
