@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name = 'xt_base',
-    version = '0.0.1',
+    version = '18.04.24.1',
     keywords='base package of xt-server',
     description = 'base package of xt-server.',
     license = 'MIT License',
