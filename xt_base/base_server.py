@@ -2,12 +2,9 @@ from tornado.web import Application
 
 from dtlib.tornado.base_hanlder import MyUserBaseHandler
 from dtlib.tornado.const_data import FieldDict
-from dtlib.tornado.ttl_docs import WebToken, AppSession
 from dtlib.web.valuedict import ValueDict
 
 commentKeep_ValueDict = ValueDict(0, '')
-commentKeep_WebToken = WebToken()
-commentKeep_AppToken = AppSession()
 
 
 class MyApplication(Application):
