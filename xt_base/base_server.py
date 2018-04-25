@@ -49,11 +49,11 @@ class MyBaseHandler(MyUserBaseHandler):
 
     def __init__(self, *args, **kwargs):
         super(MyBaseHandler, self).__init__(*args, **kwargs)
-        self.set_header('Access-Control-Allow-Origin', '*')
-        self.set_header('Access-Control-Allow-Headers',
-                        'Origin, X-Requested-With, Content-type, Accept, connection, User-Agent, Cookie')
-        self.set_header('Access-Control-Allow-Methods',
-                        'POST, GET, OPTIONS')
+        # self.set_header('Access-Control-Allow-Origin', '*')
+        # self.set_header('Access-Control-Allow-Headers',
+        #                 'Origin, X-Requested-With, Content-type, Accept, connection, User-Agent, Cookie')
+        # self.set_header('Access-Control-Allow-Methods',
+        #                 'POST, GET, OPTIONS')
 
     def set_http_tag(self):
         """
